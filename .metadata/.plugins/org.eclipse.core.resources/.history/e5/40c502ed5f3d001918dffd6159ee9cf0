@@ -1,0 +1,32 @@
+$(document).ready(function(){
+
+  $('.header-list li, .add').click(function(){
+    $('#login-modal').fadeIn();
+  });
+
+  $('.close-modal').click(function(){
+	  $('#login-modal').fadeOut();
+  });
+
+  $('.add').click(function(){
+	  
+	  var title = $('.form-control input').val();
+	  var hours = $('.hours').val();
+	  var motivation = $('.motivation').val();
+	  var classification = $('.classification option:selected').val();
+	  var priority = $('.priority option:selected').val();
+	  var contents = $('.contents textarea').val();
+	  
+	  $.ajax({
+		 type:"post",
+		 url:"http://localhost:8080/todooo/add",
+		 data:JSON.stringfy(data),
+		 contentType: 'application/json',
+		 dataType: "json,",
+		 success: function(json_data){
+			 
+		 }
+		 		  
+	  });
+  });
+});

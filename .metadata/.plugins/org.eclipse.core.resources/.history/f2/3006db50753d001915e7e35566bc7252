@@ -1,0 +1,43 @@
+$(document).ready(function(){
+
+  $('.header-list li, .add').click(function(){
+    $('#login-modal').fadeIn();
+  });
+
+  $('.close-modal').click(function(){
+	  $('#login-modal').fadeOut();
+  });
+
+  $('#submit-btn').click(function(){
+	  
+	  var title = $('.form-control input').val();
+	  var hours = $('.hours').val();
+	  var motivation = $('.motivation').val();
+	  var classification = $('.classification option:selected').val();
+	  var priority = $('.priority option:selected').val();
+	  var contents = $('.contents textarea').val();
+	  
+	  var todo = {
+		title : title,
+		hours : hours,
+		motivation : motivation,
+		classification : classification,
+		priority : priority,
+		contents : contents
+	  }
+	  
+	  $('#login-modal').fadeOut();
+
+	  $.ajax({
+		 type:"post",
+		 url:"http://localhost:8080/todoooo/add",
+		 data:JSON.stringfy(todo),
+		 contentType: 'application/json',
+		 dataType: "json,",
+		 success: function(json_data){
+			 alert(1);
+		 }
+		 		  
+	  });
+  });
+});

@@ -1,0 +1,98 @@
+body {
+  font-family: sans-serif;
+}
+
+li{
+  list-style: none;
+  float: left;
+  padding-right: 30px;
+  cursor: pointer;
+}
+
+header {
+  -webkit-box-shadow: 0 5px 0 rgba(122, 122, 122, 0.0588235);
+  -moz-box-shadow: 0 5px 0 rgba(122, 122, 122, 0.0588235);
+  box-shadow: 0 5px 0 rgba(122, 122, 122, 0.0588235);
+  height: 50px;
+}
+.header-logo {
+  float:left;
+  font-size: 18px;
+  padding: 10px;
+}
+.header-list {
+  float:right;
+  font-size: 13px;
+  padding:4px;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 33.33%;
+  margin-top: 10px;
+  height: 600px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.login-modal-wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+
+  display:none;
+}
+
+.fa {
+  margin-right: 5px;
+}
+
+.fa-times {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: rgba(128, 128, 128, 0.46);
+  cursor: pointer;
+}
+
+.modal {
+  position: absolute;
+  top: 20%;
+  left: 34%;
+  background-color: #e6ecf0;
+  padding: 20px 0 40px;
+  border-radius: 10px;
+  width: 450px;
+  height: auto;
+  text-align: center;
+}
+
+#signup-form input, #login-form input {
+  width: 320px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  padding: 12px 12px;
+  border: 1px solid #d0d5d8;
+  border-radius: 5px;
+}
+
+#submit-btn {
+  display: inline-block;
+  padding: 14px 140px;
+  background-color: #5dca88;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  margin: 10px auto;
+  cursor: pointer;
+}

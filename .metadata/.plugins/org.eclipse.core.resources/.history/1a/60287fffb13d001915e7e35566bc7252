@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>Todooo</title>
+  <link th:href="@{css/stylesheet.css}" rel="stylesheet"/>
+  <!-- Import jQuery-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+</head>
+<body>
+  <header>
+    <div class="header-logo">
+      Todooo
+    </div>
+    <div class="header-list">
+      <ul>
+      	<li>+</li>
+        <li>New<br>25h</li>
+        <li>Working<br>10h</li>
+        <li>Completed<br>5h</li>
+      </ul>
+    </div>
+  </header>
+  <div class="main">
+  	<div class="todo-list">
+  	  <div th:each="list:${todoList}">
+  	  	<input type="checkbox" th:id="${list.id}"> 
+    	<p th:text="${list.title}"></p>
+    	<p th:text="${list.contents}"></p>
+	  </div>
+	  <div class="todo-list-add">
+	  	<input type="checkbox" name="check" th:id="${list.id}"> 
+	  	<p></p>
+	  </div>
+	  <div class="add">+</div>
+  	</div>
+  </div>
+  
+
+
+    <div id="login-modal" class="login-modal-wrapper">
+      <!-- ログインのモーダル部分のHTMLを貼り付けてください -->
+      <div class="modal">
+        <div class="close-modal">
+        	<i class="fa fa-2x fa-times"></i>
+      	</div>
+        <div id="login-form">
+          <h3>Todo</h3>
+          <form action="#">
+            <input id="title" class="form-control" type="text" placeholder="title">
+            <input id="hours" class="hours" type="text" placeholder="hours">
+            <input id="motivation" class="motivation" type="text" placeholder="motivation">
+            <br>
+            <select id="classification" class="classification" name="classification">
+            <option selected value="1">New</option>
+            <option value="2">Working</option>
+            <option value="3">Completed</option>
+            </select>
+            <br>
+            <select id="priority" class="priority" name="priority">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            </select>
+            <br>                      
+            <textarea id="contents" class="form-control" placeholder="contents"></textarea>
+            <div id="submit-btn">Add</div>
+          </form>
+        </div>
+      </div>
+	</div>
+<script th:src="@{js/script.js}"></script>
+</body>
+</html>
