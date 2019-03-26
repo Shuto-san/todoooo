@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,19 +25,23 @@ public class todoRestController {
 	@ResponseBody
 	public Todo addTodo (@RequestBody Todo todo) {
 		
-		while(todoRepository.existsById(todo.getId())) {
-			todo.setId(todo.getId()+1);
-		}
+//		while(todoRepository.existsById(todo.getId())) {
+//			todo.setId(todo.getId()+1);
+//			System.out.println(todo.getId());
+//		}
 		return todoRepository.save(todo);
 	}
 	
-	@DeleteMapping(value = "todoooo/delete/{id}",  consumes = "application/json", produces = "application/json")
-	public String deleteTodo(@PathVariable("id") Integer id) {
-		todoRepository.deleteById(id);
-		return "completed!";
+	@DeleteMapping("todoooo/delete/{id}")
+	public boolean deleteTodo(@PathVariable("id") Integer id) {
+			todoRepository.deleteById(id);			
+			return true;
 	}
 	
-	
+	@PutMapping("todooo/put")
+	public Todo updateTodo(@RequestBody Todo todo) {
+		return todoRepository.save(todo);
+	}
 	
 
 }
