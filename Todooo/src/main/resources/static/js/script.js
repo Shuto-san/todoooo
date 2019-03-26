@@ -1,51 +1,66 @@
 $(document).ready(function(){
 
-	$('.header-list li, .add').click(function(){
-		$('#login-modal').fadeIn();
+	$('.add').click(function(){
+		$('.todo-list').append(`<div class="todolist" id=""></div>`);
+		$('.todolist:last').append(`<input type="checkbox" name="check" class="check">`);
+		$('.todolist:last').append(`<input type="text" class="form inlineblock" value="">`);
+		$('.todolist:last').find('.form').focus();
 	});
-
-	$('.close-modal').click(function(){
-		$('#login-modal').fadeOut();
-	});
-
-	$('#submit-btn').click(function(){
-
-		var title = $('#title').val();
-		var hours = $('#hours').val();
-		var motivation = $('#motivation').val();
-		var classification = $('#classification').val();
-		var priority = $('#priority').val();
-		var contents = $('#contents').val();
-
-		var todo = {
-				id : null,
-				title : title,
-				hours : hours,
-				motivation : motivation,
-				classification : classification,
-				priority : priority,
-				contents : contents
+	
+	$(document).on('keypress', '.form', function(code){
+		//エンターキーを押して、TODOを更新する
+		if (code.which == 13) {
+			var titleonly = $(this).val();
+			var id = $(this).parent().attr('id');
+			alert(id);
+			if (id == "") {
+				var todo = {
+						id : null,
+						title : titleonly,
+						hours : 1,
+						motivation : 1,
+						classification : 1,
+						priority : 1,
+						contents : titleonly
+				}
+				$.ajax({
+					type:"post",
+					url:"http://localhost:8080/todoooo/add",
+					data:JSON.stringify(todo),
+					contentType: 'application/json',
+					dataType: "json",
+					success: function(json_data){
+						id = String(json_data.id);
+						$('.todolist:last').attr('id', id);
+					}		 		  
+				});
+				
+			} else {
+				var todo = {
+						id : id,
+						title : titleonly,
+						hours : 1,
+						motivation : 1,
+						classification : 1,
+						priority : 1,
+						contents : titleonly
+				}
+				$.ajax({
+					type:"put",
+					url:"http://localhost:8080/todooo/put",
+					data:JSON.stringify(todo),
+					contentType: 'application/json',
+					dataType: "json",
+					success: function(json_data){
+						alert('update!!');
+					}		 		  
+				});  				
+			}			
+			$(this).blur();
 		}
-		console.log(JSON.stringify(todo));
-		$('#login-modal').fadeOut();
-
-		$.ajax({
-			type:"post",
-			url:"http://localhost:8080/todoooo/add",
-			data:JSON.stringify(todo),
-			contentType: 'application/json',
-			dataType: "json",
-			success: function(json_data){
-				$('.todo-list').append(`<div class="todolist" id="${json_data.id}"></div>`);
-				$('.todolist:last').append(`<input type="checkbox" name="check" class="check">`);
-				$('.todolist:last').append(`<div>${json_data.title}</div>`);			 
-				$('.todolist:last').append(`<div>${json_data.contents}</div>`);			 
-			}		 		  
-		});  
 	});
 
 	$(document).on('change', '.check', function(){
-		alert('check!');
 		var elements = document.getElementsByName('check');
 		for(var i = 0 ; i < elements.length ; i++){
 			if(elements[i].checked == true){
@@ -53,6 +68,11 @@ $(document).ready(function(){
 				var id = elements[i].parentElement.id;
 			}
 		}
+		
+		if (id == "") {
+			$element.remove();
+		}
+		
 		$.ajax({
 			type:"delete",
 			url:`http://localhost:8080/todoooo/delete/${id}`,
